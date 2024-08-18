@@ -21,7 +21,7 @@ public class SpecializationServiceImpl implements SpecializationService{
                throw new SpecializationAlreadyPresent("Specialization is already present!!");
            }
          Specialization specialization = new Specialization();
-         specialization.setExpertise("Cardiologist");
+           specialization.setExpertise(dto.getExpertise());
          return specializationEntityToDto(specializationRepository.save(specialization));
 
     }

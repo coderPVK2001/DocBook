@@ -27,8 +27,9 @@ public class SpecializationController {
     };
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchDoctorSpecialization(@RequestParam long SpecializationId ) {
-        return new ResponseEntity<>(specializationService.searchDoctorSpecialization(SpecializationId), HttpStatus.OK);
+    public ResponseEntity<?> searchDoctorSpecialization(@RequestParam long specializationId ) {
+
+        return new ResponseEntity<>(specializationService.searchDoctorSpecialization(specializationId), HttpStatus.OK);
     };
 
 

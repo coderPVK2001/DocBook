@@ -16,19 +16,4 @@ public class City {
     @Column(name = "cityname")
     private String cityname;
 
-//    public String getCityname() {
-//        return cityname;
-//    }
-//
-//    public void setCityname(String cityname) {
-//        this.cityname = cityname;
-//    }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
 }
