@@ -16,4 +16,5 @@ public class City {
     @Column(name = "cityname")
     private String cityname;
 
+
 }
