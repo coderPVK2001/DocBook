@@ -21,7 +21,7 @@ public class SpecializationServiceImpl implements SpecializationService{
                throw new SpecializationAlreadyPresent("Specialization is already present!!");
            }
          Specialization specialization = new Specialization();
-         specialization.setExpertise("Cardiologist");
+         specialization.setExpertise(dto.getExpertise());
          return specializationEntityToDto(specializationRepository.save(specialization));
 
     }
@@ -36,9 +36,9 @@ public class SpecializationServiceImpl implements SpecializationService{
     }
 
     @Override
-    public SpecializationDto searchDoctorSpecialization(long specializationId) {
-        Specialization specialization = specializationRepository.findById(specializationId).orElseThrow(
-                () -> new SpecializationNotFound("Specialization is not found for id " + specializationId)
+    public SpecializationDto searchDoctorSpecialization(String expertise) {
+        Specialization specialization = specializationRepository.findByExpertise(expertise).orElseThrow(
+                () -> new SpecializationNotFound("Specialization is not found")
         );
         return specializationEntityToDto(specialization);
     }

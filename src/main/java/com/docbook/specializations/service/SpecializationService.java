@@ -8,5 +8,5 @@ public interface SpecializationService {
 
     String deleteDoctorSpecialization(long specializationId);
 
-    SpecializationDto searchDoctorSpecialization(long specializationId);
+    SpecializationDto searchDoctorSpecialization(String expertise);
 }

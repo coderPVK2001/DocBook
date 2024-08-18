@@ -22,13 +22,13 @@ public class SpecializationController {
     };
 
     @DeleteMapping("/delete/{specializationId}")
-    public ResponseEntity<?> deleteDoctorSpecialization(@PathVariable long SpecializationId ) {
-        return new ResponseEntity<>(specializationService.deleteDoctorSpecialization(SpecializationId), HttpStatus.OK);
+    public ResponseEntity<?> deleteDoctorSpecialization(@PathVariable long specializationId ) {
+        return new ResponseEntity<>(specializationService.deleteDoctorSpecialization(specializationId), HttpStatus.OK);
     };
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchDoctorSpecialization(@RequestParam long SpecializationId ) {
-        return new ResponseEntity<>(specializationService.searchDoctorSpecialization(SpecializationId), HttpStatus.OK);
+    public ResponseEntity<?> searchDoctorSpecialization(@RequestParam String expertise ) {
+        return new ResponseEntity<>(specializationService.searchDoctorSpecialization(expertise), HttpStatus.OK);
     };
 
 
