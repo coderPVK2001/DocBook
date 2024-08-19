@@ -1,0 +1,7 @@
+package com.docbook.doctor.repository;
+
+import com.docbook.doctor.entity.Doctor;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DoctorRepository extends JpaRepository<Doctor, Long> {
+}
