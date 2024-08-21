@@ -1,5 +1,6 @@
 package com.docbook.doctor.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,11 +15,11 @@ import java.nio.file.Paths;
 @Service
 public class S3Service {
 
+
     private final S3Client s3Client;
 
     @Value("${application.bucket.name}")
     private String bucketName;
-
     public S3Service(S3Client s3Client) {
         this.s3Client = s3Client;
     }

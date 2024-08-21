@@ -14,8 +14,13 @@ public class ConsultationTimeController {
     public ConsultationTimeController(ConsultationTimeService consultationTimeService) {
         this.consultationTimeService = consultationTimeService;
     }
-    @PostMapping("/addSlots")
+    @PostMapping("/addSlots/{doctorId}")
     public ResponseEntity<?> getConsultationTimeSlots(@RequestBody ConsultationTimeDto dto, @PathVariable long doctorId){
         return new ResponseEntity<>(consultationTimeService.getAllConsultationTimeSlots(dto,doctorId), HttpStatus.CREATED);
+    }
+
+    @GetMapping("getSlots/{doctorId}")
+    public ResponseEntity<?> getAllConsultationTimeSlots(@PathVariable long doctorId){
+        return new ResponseEntity<>(consultationTimeService.findAllConsultationTimeSlotsByDoctor(doctorId), HttpStatus.OK);
     }
 }
