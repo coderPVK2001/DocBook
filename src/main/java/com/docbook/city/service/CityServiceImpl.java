@@ -1,6 +1,7 @@
 package com.docbook.city.service;
 
 import com.docbook.city.entity.City;
+import com.docbook.city.exception.NoCityFoundException;
 import com.docbook.city.payload.CityDto;
 import com.docbook.city.repository.CityRepository;
 import org.springframework.stereotype.Service;
@@ -34,9 +35,8 @@ public class CityServiceImpl implements CityService{
             return cityRepository.save(city);
         }
         else{
-            return null;
+            throw new NoCityFoundException("city not found!!");
         }
     }
-
 
 }
