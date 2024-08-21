@@ -22,8 +22,8 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
-    @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addDoctor(@RequestPart("doctorDto") String doctorDtoJson, @RequestPart("file") MultipartFile file){
+    @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addDoctor(@RequestPart("doctorDto") String doctorDtoJson, @RequestPart("file") MultipartFile file) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         Doctordto doctorDto;
@@ -39,20 +39,20 @@ public class DoctorController {
 
     @GetMapping("/get")
     public ResponseEntity<?> search(
-            @RequestParam( required = true, value = "specialization") String specialization,
-            @RequestParam( required = false, value = "area") String area,
-            @RequestParam( required = false, value = "city") String city
-    ){
+            @RequestParam(required = true, value = "specialization") String specialization,
+            @RequestParam(required = false, value = "area") String area,
+            @RequestParam(required = false, value = "city") String city
+    ) {
+
         List<Doctordto> doctordto;
-        if(area!=null){
+        if (area != null) {
             doctordto = doctorService.searchByAreaAndSpecialization(area, specialization);
-        }
-        else if(city!=null){
+        } else if (city != null) {
             doctordto = doctorService.searchByCityAndSpecialization(city, specialization);
-        }
-        else{
+        } else {
             return new ResponseEntity<>("enter params properly", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(doctordto, HttpStatus.OK);
     }
+
 }

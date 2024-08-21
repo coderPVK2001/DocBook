@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 @Service
 public class DoctorServiceImpl implements DoctorService{
 
-
     private S3Service s3Service;
     private AreaRepository areaRepository;
     private CityRepository cityRepository;

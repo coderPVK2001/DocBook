@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface DoctorService {
 
+
     Doctordto addDoctor(Doctordto doctordto, MultipartFile file);
 
     List<Doctordto> searchByAreaAndSpecialization(String area, String specialization);
     List<Doctordto> searchByCityAndSpecialization( String city, String specialization);
-
 }
