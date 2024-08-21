@@ -2,6 +2,7 @@ package com.docbook.consultation_time.service;
 
 import com.docbook.consultation_time.entity.ConsultationTime;
 import com.docbook.consultation_time.payload.ConsultationTimeDto;
+import com.docbook.consultation_time.payload.TimeSlots;
 import com.docbook.consultation_time.repository.ConsultationTimeRepository;
 import com.docbook.doctor.entity.Doctor;
 import com.docbook.doctor.repository.DoctorRepository;
@@ -27,13 +28,18 @@ public class ConsultationTimeServiceImpl implements ConsultationTimeService{
 
 
     @Override
-    public List<ConsultationTime> getAllConsultationTimeSlots(ConsultationTimeDto dto, long doctorId) {
+    public List<ConsultationTimeDto> getAllConsultationTimeSlots(ConsultationTimeDto dto, long doctorId) {
         Doctor doctor = doctorRepository.findById(doctorId).get();
-
-         return dto.getTimeSlots().stream().map(slot -> convertDtoToConsultationTime(dto.getDate(), slot.getTime(), doctor)).
+        List<ConsultationTime> listOfConsultation = dto.getTimeSlots().stream().map(slot -> convertDtoToConsultationTime(dto.getDate(), slot.getTime(), doctor)).
                 collect(Collectors.toList());
+        return listOfConsultation.stream().map(x -> consultationTimeEntityToDto(x)).toList();
+    }
 
-
+    @Override
+    public List<ConsultationTime> findAllConsultationTimeSlotsByDoctor(long doctorId) {
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+        return consultationTimeRepository.findAvailableConsultationsForDoctor(currentDate, currentTime, doctorId);
 
     }
 
@@ -42,6 +48,16 @@ public class ConsultationTimeServiceImpl implements ConsultationTimeService{
         consultationTime.setDate(date);
         consultationTime.setTime(time);
         consultationTime.setDoctor(doctor);
+        consultationTime.setStatus("Available");
         return consultationTimeRepository.save(consultationTime);
+    }
+
+    public ConsultationTimeDto consultationTimeEntityToDto(ConsultationTime dto){
+        ConsultationTimeDto consultationTime = new ConsultationTimeDto();
+        consultationTime.setDate(dto.getDate());
+        consultationTime.setId(dto.getId());
+        consultationTime.setTime(dto.getTime());
+        consultationTime.setDoctorName(dto.getDoctor().getDoctorName());
+        return consultationTime;
     }
 }

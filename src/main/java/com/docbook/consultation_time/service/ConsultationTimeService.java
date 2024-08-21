@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface ConsultationTimeService  {
 
-    List<ConsultationTime> getAllConsultationTimeSlots(ConsultationTimeDto dto, long doctorId);
+    List<ConsultationTimeDto> getAllConsultationTimeSlots(ConsultationTimeDto dto, long doctorId);
+
+    List<ConsultationTime> findAllConsultationTimeSlotsByDoctor(long doctorId);
 }
