@@ -13,8 +13,8 @@ import java.util.List;
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query("SELECT d FROM Doctor d where d.area=:area AND d.specialization=:specialization")
-    List<Doctor> findByAreaSpecialization(@Param("area") Area area, @Param("specialization") String specialization);
+    List<Doctor> findByAreaSpecialization(@Param("area") Area area, @Param("specialization") Specialization specialization);
 
     @Query("SELECT d FROM Doctor d where d.city=:city AND d.specialization=:specialization")
-    List<Doctor> findByCitySpecialization(@Param("city") City city, @Param("specialization") String specialization1);
+    List<Doctor> findByCitySpecialization(@Param("city") City city, @Param("specialization") Specialization specialization1);
 }

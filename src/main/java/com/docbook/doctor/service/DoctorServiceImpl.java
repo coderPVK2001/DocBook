@@ -86,8 +86,8 @@ public class DoctorServiceImpl implements DoctorService{
     @Override
     public List<Doctordto> searchByAreaAndSpecialization(String area, String specialization) {
         Area area1 = areaRepository.findByAreaname(area).orElseThrow(() -> new AreaNotFoundException("area not found"));
-
-        List<Doctor> listData = doctorRepository.findByAreaSpecialization(area1, specialization);
+        Specialization specialization1 = specializationRepository.findByExpertise(specialization).orElseThrow(() -> new SpecializationNotFound("specialization not found!!"));
+        List<Doctor> listData = doctorRepository.findByAreaSpecialization(area1, specialization1);
         List<Doctordto> result = listData.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
         return result;
     }
@@ -95,9 +95,9 @@ public class DoctorServiceImpl implements DoctorService{
     @Override
     public List<Doctordto> searchByCityAndSpecialization(String city, String specialization) {
 
-        City city1 = cityRepository.findByCityname(city).orElseThrow(() -> new CityNotFoundException("city not found!!"));
-
-        List<Doctor> result=doctorRepository.findByCitySpecialization(city1, specialization);
+        City city1 = cityRepository.findByCityname(city).orElseThrow(() -> new NoCityFoundException("city not found!!"));
+        Specialization specialization1 = specializationRepository.findByExpertise(specialization).orElseThrow(() -> new SpecializationNotFound("specialization not found!!"));
+        List<Doctor> result=doctorRepository.findByCitySpecialization(city1, specialization1);
         List<Doctordto> collect = result.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
         return collect;
     }
