@@ -58,6 +58,11 @@ public class DoctorServiceImpl implements DoctorService{
         doctor.setDoctorName(doctorDto.getName());
         doctor.setMobile(doctorDto.getMobile());
         doctor.setEmail(doctorDto.getEmail());
+        doctor.setAfternoonEnd(doctorDto.getAfternoonEnd());
+        doctor.setAfternoonStart(doctorDto.getAfternoonStart());
+        doctor.setMorningEnd(doctorDto.getMorningEnd());
+        doctor.setMorningEnd(doctorDto.getMorningEnd());
+        doctor.setSlotDuration(doctorDto.getSlotDuration());
 
         String url=null;
         try {
@@ -78,6 +83,8 @@ public class DoctorServiceImpl implements DoctorService{
 
         City city = cityRepository.findByCityname(doctorDto.getCity()).orElseThrow(() -> new NoCityFoundException("city not found!!"));
         doctor.setCity(city);
+
+
 
         return doctorRepository.save(doctor);
     }
@@ -113,6 +120,11 @@ public class DoctorServiceImpl implements DoctorService{
         dto.setClinic(doctor.getClinic().getClinicName());
         dto.setAreaname(doctor.getArea().getAreaname());
         dto.setUrl(doctor.getImageUrl());
+        dto.setAfternoonEnd(doctor.getAfternoonEnd());
+        dto.setAfternoonStart(doctor.getAfternoonStart());
+        dto.setMorningEnd(doctor.getMorningEnd());
+        dto.setMorningEnd(doctor.getMorningEnd());
+        dto.setSlotDuration(doctor.getSlotDuration());
 
         return dto;
     }
