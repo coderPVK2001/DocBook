@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @Entity
@@ -46,4 +48,9 @@ public class Doctor {
     @JoinColumn(name = "clinic_id")
     private Clinic clinic;
 
+    private int slotDuration;
+    private LocalTime afternoonEnd;
+    private LocalTime morningStart;
+    private LocalTime afternoonStart;
+    private LocalTime morningEnd;
 }

@@ -17,4 +17,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query("SELECT d FROM Doctor d where d.city=:city AND d.specialization=:specialization")
     List<Doctor> findByCitySpecialization(@Param("city") City city, @Param("specialization") String specialization1);
+
+
 }
