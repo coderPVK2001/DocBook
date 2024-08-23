@@ -24,6 +24,7 @@ public class SchedulerConfig {
     }
 
     @Scheduled(cron = "0 0 0 * * ?") // Runs every day at midnight
+//    @Scheduled(fixedRate = 1)
     public void scheduleSlotCreationForAllDoctors() {
 
 
@@ -33,10 +34,8 @@ public class SchedulerConfig {
          */
         List<Doctor> allDoctors = doctorRepository.findAll();
 
-
         for (Doctor doctor : allDoctors) {
             slotCreationService.createSlotsForDoctor(doctor);
-
 
         }
 

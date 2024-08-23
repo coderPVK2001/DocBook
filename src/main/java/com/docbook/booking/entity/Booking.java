@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -25,6 +26,11 @@ public class Booking {
     @Column(name = "time")
     private LocalTime time;
 
+    @Column(name = "booked_on")
+    private LocalDateTime bookedOn;
+
+    private String clinicName;
+
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
@@ -32,5 +38,6 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
 
 }

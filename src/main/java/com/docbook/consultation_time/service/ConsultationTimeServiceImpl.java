@@ -22,15 +22,13 @@ public class ConsultationTimeServiceImpl implements ConsultationTimeService{
         this.consultationTimeRepository = consultationTimeRepository;
     }
 
-
-
-
     @Override
-    public List<ConsultationTime> findAllConsultationTimeSlotsByDoctor(long doctorId) {
+    public List<ConsultationTimeDto> findAllConsultationTimeSlotsByDoctor(long doctorId) {
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
-        return consultationTimeRepository.findAvailableConsultationsForDoctor(currentDate, currentTime, doctorId);
-
+        List<ConsultationTime> listConsulation = consultationTimeRepository.findAvailableConsultationsForDoctor(currentDate, currentTime, doctorId);
+        List<ConsultationTimeDto> result = listConsulation.stream().map(x -> consultationTimeEntityToDto(x)).collect(Collectors.toList());
+        return result;
     }
 
     @Override
@@ -51,8 +49,8 @@ public class ConsultationTimeServiceImpl implements ConsultationTimeService{
 
     public ConsultationTimeDto consultationTimeEntityToDto(ConsultationTime dto){
         ConsultationTimeDto consultationTime = new ConsultationTimeDto();
-        consultationTime.setDate(dto.getDate());
         consultationTime.setId(dto.getId());
+        consultationTime.setDate(dto.getDate());
         consultationTime.setTime(dto.getTime());
         consultationTime.setDoctorName(dto.getDoctor().getDoctorName());
         return consultationTime;

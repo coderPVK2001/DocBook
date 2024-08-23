@@ -10,7 +10,7 @@ import java.util.List;
 public interface ConsultationTimeService  {
 
 
-    List<ConsultationTime> findAllConsultationTimeSlotsByDoctor(long doctorId);
+    List<ConsultationTimeDto> findAllConsultationTimeSlotsByDoctor(long doctorId);
 
     ConsultationTime updateConsultationTimeSlots(long doctorId, UpdateConsultationStatusDto dto);
 }

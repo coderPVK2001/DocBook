@@ -19,6 +19,8 @@ public interface ConsultationTimeRepository extends JpaRepository<ConsultationTi
     List<ConsultationTime> findAvailableConsultationsForDoctor(@Param("currentDate") LocalDate currentDate,
                                                                @Param("currentTime") LocalTime currentTime,
                                                                @Param("doctorId") Long doctorId);
+
+
     @Query("select ct from ConsultationTime ct where ct.date = :currentDate and ct.time = :currentTime and ct.doctor.id = :doctorId and (ct.status = 'Booked' or ct.status = 'Available')")
     ConsultationTime findConsultaitonTimeSlotsForUpdate(@Param("currentDate") LocalDate currentDate,
                                                         @Param("currentTime") LocalTime currentTime,
