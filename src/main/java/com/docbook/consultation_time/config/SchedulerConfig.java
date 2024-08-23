@@ -23,8 +23,8 @@ public class SchedulerConfig {
         this.doctorRepository = doctorRepository;
     }
 
-    @Scheduled(cron = "0 0 0 * * ?") // Runs every day at midnight
-//    @Scheduled(fixedRate = 1)
+    //    @Scheduled(fixedRate = 1)
+    @Scheduled(cron = "0 30 23 * * ?") // Runs every day at midnight
     public void scheduleSlotCreationForAllDoctors() {
 
 

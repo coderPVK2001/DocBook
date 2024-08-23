@@ -3,7 +3,7 @@ package com.docbook.booking.service;
 import com.docbook.booking.entity.Booking;
 import com.docbook.booking.payload.BookingDto;
 import com.docbook.booking.repository.BookingRepository;
-import com.docbook.booking.utility.PdfService;
+import com.docbook.utilities.PdfService;
 import com.docbook.consultation_time.entity.ConsultationTime;
 import com.docbook.consultation_time.exception.ConsultationIdNotFoundException;
 import com.docbook.consultation_time.repository.ConsultationTimeRepository;
@@ -12,6 +12,7 @@ import com.docbook.doctor.repository.DoctorRepository;
 import com.docbook.patient.entity.Patient;
 import com.docbook.patient.exception.PatientIdNotFoundException;
 import com.docbook.patient.repository.PatientRepository;
+import com.docbook.utilities.TwilioSmsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -21,15 +22,12 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -51,13 +49,15 @@ public class BookingServiceImpl implements BookingService {
     private PatientRepository patientRepository;
     private DoctorRepository doctorRepository;
     private PdfService pdfService;
+    private TwilioSmsService twilioSmsService;
 
-    public BookingServiceImpl(BookingRepository bookingRepository, ConsultationTimeRepository consultationTimeRepository, PatientRepository patientRepository, DoctorRepository doctorRepository, PdfService pdfService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, ConsultationTimeRepository consultationTimeRepository, PatientRepository patientRepository, DoctorRepository doctorRepository, PdfService pdfService, TwilioSmsService twilioSmsService) {
         this.bookingRepository = bookingRepository;
         this.consultationTimeRepository = consultationTimeRepository;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
         this.pdfService = pdfService;
+        this.twilioSmsService = twilioSmsService;
     }
 
     @Override
@@ -92,7 +92,10 @@ public class BookingServiceImpl implements BookingService {
             String s3Key = "booking-" + savedBooking.getId() + ".pdf"; // Key under which the PDF will be stored in S3
 
             savedUrl = uploadPdfToS3(filePath, s3BucketName, s3Key);
-            System.out.println(savedUrl);
+
+            //sms sending with twilio
+            twilioSmsService
+                    .sendSms(bookingDto.getMobile(),"your slot is confirmed \n for more details :-"+savedUrl+"\n don't forget to visit the clinic !!");
 
         } catch (IOException e) {
             // Handle the exception, maybe log it
@@ -129,7 +132,7 @@ public class BookingServiceImpl implements BookingService {
         try {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
-                    .key(key)
+                    .key(key)               //file name in aws
                     .build();
 
             s3Client.putObject(putObjectRequest, RequestBody.fromFile(file));

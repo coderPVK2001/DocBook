@@ -1,6 +1,5 @@
-package com.docbook.doctor.service;
+package com.docbook.utilities;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,7 +9,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 
 @Service
 public class S3Service {

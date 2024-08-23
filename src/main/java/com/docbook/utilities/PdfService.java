@@ -1,4 +1,4 @@
-package com.docbook.booking.utility;
+package com.docbook.utilities;
 import com.docbook.booking.payload.BookingDto;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -12,11 +12,6 @@ import java.io.IOException;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import org.springframework.stereotype.Service;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 @Service
 public class PdfService {
