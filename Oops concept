@@ -2,7 +2,7 @@
 •	Java is being implemented based on OOPS concept.
 •	OOPS consists of various concepts:-…
 
-Encapsulation:-
+1. Encapsulation:-
 -Encapsulation in java is mechanism of wrapping the data(variables) and code acting on the data(methods) together as a single unit. 
 -Encapsulation,is to make sure that "sensitive" data is hidden from users.
 -Encapsulation is used to hide the values/data or state of structured data object inside a class.
@@ -18,7 +18,7 @@ if i want to set the details of that particular field then i need to set it by u
 in this way i used the encapsulation concept in my project.
 
 
-Inheritance:-
+2. Inheritance:-
 
 •	Inheritance in Java is the concept where the properties of one class can be inherited by the other. 
 •	Here we inherit the members of parent class to child class to reuse it.
@@ -35,9 +35,39 @@ diamond :-
 Diamond Problem occurs in languages with multiple inheritance when a class can inherit the same method from more than one superclass, leading to ambiguity.
 Java avoids the Diamond Problem by not allowing multiple inheritance with classes, but it allows multiple inheritance with interfaces, where the developer must resolve any conflicts.
 
+3. Polymorphism :-
 
+•	Polymorphism means "many forms".
+•	Developing a feature such that it takes more than one form.
+•	Same methods acting as diff. forms 
+•	Appicable only on methods.
+2 Types :- compile time(method overloading) & Runtime (method overriding)
 
+example :- 
 
+in my projects service layer i used to define incomplete methods in interface and to complete that method i used to override that methods in serviceimpl class .
+in this way i achieved polymorphism .
+
+overloading :-- while using email api for sending mails i used this one method for sending mail with pdf attachment & message, and other one for sending only meessage
+
+4. Abstraction:--
+
+•	Abstraction is a process of hiding the implementation details and showing only functionality to the user. 
+•	Another way, it shows only essential things to the user and hides the internal details,
+There are two ways to achieve abstraction in java
+A.	Abstract class 
+•	A class which is declared with the abstract keyword is known as an abstract class in Java. 
+•	A constructor and main method can be created in abstract class.
+•	Variable by default is not static & final here
+•	Multiple inheritance is not possible in abstract class.
+•	Newer points:-
+•	It contains both complete and incomplete methods.
+•	Extends keyword should be used while inheriting.
+
+B.	Interface
+•	Interface puts contract on class stating that all the incomplete methods inherited from inteface should be completed within the class by performing overriding or else u will notice error in the class.
+
+static commplete methods from interface cannot be accessed by ref. variable name directly but should be accesses by classname.membername or interfacename.membername
 
 
 
