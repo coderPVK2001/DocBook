@@ -1,0 +1,222 @@
+•	It is a standard using which several languages are built.
+•	Java is being implemented based on OOPS concept.
+•	OOPS consists of various concepts:-…
+
+Encapsulation:-
+-Encapsulation in java is mechanism of wrapping the data(variables) and code acting on the data(methods) together as a single unit. 
+-Encapsulation,is to make sure that "sensitive" data is hidden from users.
+-Encapsulation is used to hide the values/data or state of structured data object inside a class.
+-The variables in class are made private to avoid direct access of it.
+-We cannot directly access the variables but can directly access the methods.
+-Publicly accessible methods are generally provided in the class(so-called getters and setters ) 
+-By using methods we can interact directly with the variables which are made private.      
+
+example:- 
+i used encapsulation concept in my application while creating entity classes like signup,property,.. and many other classes where in each entity class i marked the fields as a private to avoid direct access of it from other classes.
+and created the publically accessible getters and setters methods along with it so that ,
+if i want to set the details of that particular field then i need to set it by using setters and for accessing the field i need to use the getters ,
+in this way i used the encapsulation concept in my project.
+
+
+Inheritance:-
+
+•	Inheritance in Java is the concept where the properties of one class can be inherited by the other. 
+•	Here we inherit the members of parent class to child class to reuse it.
+•	Here, non-static members of parent class are inherited to child class objects.
+•	Static members don’t get inherited but it gives the feeling of inheritance by converting the state .
+
+example:-
+
+in my project while defining customised exceptions like UserNotFoundException,PropertyNotFoundException,..  
+we need to extend that particular exception class with RuntimeException class as it will inherit the methods from parent class otherwise we cannot able to create customised exception ; as RuntimeException is child class of Exception which tell the compiler to create customised exception
+Throwable -> Exception -> Runtime -> customised
+
+diamond :-
+Diamond Problem occurs in languages with multiple inheritance when a class can inherit the same method from more than one superclass, leading to ambiguity.
+Java avoids the Diamond Problem by not allowing multiple inheritance with classes, but it allows multiple inheritance with interfaces, where the developer must resolve any conflicts.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
