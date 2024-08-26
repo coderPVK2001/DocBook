@@ -56,6 +56,8 @@ public class BookingServiceImpl implements BookingService {
         this.pdfService = pdfService;
         this.twilioSmsService = twilioSmsService;
     }
+    @Value("${application.bucket.name}")
+    String s3BucketName;
 
     @Override
     public BookingDto addBooking(long patientid, long consultationid) {
@@ -85,7 +87,7 @@ public class BookingServiceImpl implements BookingService {
             pdfService.generateAndSavePdf(bookingDto, filePath);
 
             // Upload the PDF to S3
-            String s3BucketName = "docbookbookings";
+
             String s3Key = "booking-" + savedBooking.getId() + ".pdf"; // Key under which the PDF will be stored in S3
 
             savedUrl = uploadPdfToS3(filePath, s3BucketName, s3Key);
