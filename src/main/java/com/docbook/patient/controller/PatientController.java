@@ -30,6 +30,8 @@ public class PatientController {
         }
         PatientDto patientDto1 = patientService.addDetails(patientDto);
         return new ResponseEntity<>(patientDto1, HttpStatus.CREATED);
+
+
     }
 
 

@@ -12,8 +12,7 @@ public class ConsultationTimeDto {
 
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<TimeSlots> timeSlots;
+    
 
     private LocalDate date;
 

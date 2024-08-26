@@ -16,9 +16,11 @@ public class TwilioSmsService {
         this.twilioConfig = twilioConfig;
     }
 
+
     public void sendSms(String toPhoneNumber, String messageBody) {
+        String num = "+91"+toPhoneNumber;
         Message.creator(
-                new PhoneNumber(toPhoneNumber),
+                new PhoneNumber(num),
                 new PhoneNumber(twilioConfig.getFromPhoneNumber()),
                 messageBody
         ).create();
