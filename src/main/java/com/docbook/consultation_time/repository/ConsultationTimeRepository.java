@@ -29,4 +29,7 @@ public interface ConsultationTimeRepository extends JpaRepository<ConsultationTi
 
     boolean existsByDoctorAndDateAndTime(Doctor doctor, LocalDate date, LocalTime time);
 
+
+    @Query("select ct from ConsultationTime ct where ct.date = :date and ct.time = :time and ct.doctor.id = :doctorId")
+    ConsultationTime findByDateAndTimeAndDoctorForBooking(@Param("date") LocalDate date, @Param("time") LocalTime time,@Param("doctorId") long doctorId);
 }

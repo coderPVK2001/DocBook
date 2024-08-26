@@ -41,9 +41,6 @@ public class BookingServiceImpl implements BookingService {
     @Value("${aws.region}")
     private String region;
 
-    @Value("${pdf.filepath.base}")
-    private String pdfFilePathBase; // Base path for saving PDFs
-
     private BookingRepository bookingRepository;
     private ConsultationTimeRepository consultationTimeRepository;
     private PatientRepository patientRepository;
@@ -84,7 +81,7 @@ public class BookingServiceImpl implements BookingService {
         // Generate and save the PDF
         String savedUrl=null;
         try {
-            String filePath = Paths.get(pdfFilePathBase, "booking-" + savedBooking.getId() + ".pdf").toString();
+            String filePath = Paths.get("C://Users//user//Desktop//report", "booking-" + savedBooking.getId() + ".pdf").toString();
             pdfService.generateAndSavePdf(bookingDto, filePath);
 
             // Upload the PDF to S3

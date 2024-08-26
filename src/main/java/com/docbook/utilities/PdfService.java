@@ -1,17 +1,24 @@
 package com.docbook.utilities;
+import com.docbook.Report.payload.ReportDto;
 import com.docbook.booking.payload.BookingDto;
+import com.docbook.doctor.entity.Doctor;
+import com.docbook.patient.entity.Patient;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PdfService {
@@ -82,6 +89,108 @@ public class PdfService {
         } catch (DocumentException e) {
             throw new IOException("Error generating PDF", e);
         }
+    }
+
+    public MultipartFile convertPdfToMultipartFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        FileInputStream input = new FileInputStream(file);
+
+        // Convert the file to MultipartFile
+        MultipartFile multipartFile = new MockMultipartFile(
+                "file",
+                file.getName(),
+                "application/pdf",
+                input
+        );
+
+        input.close();
+        return multipartFile;
+    }
+
+    public void createReport(ReportDto dto, Doctor doctor, Patient patient, String filePath) {
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(new File(filePath)));
+            document.open();
+
+            // Clinic Name Header
+            Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
+            Paragraph clinicName = new Paragraph(doctor.getClinic().getClinicName(), titleFont);
+            clinicName.setAlignment(Element.ALIGN_CENTER);
+            document.add(clinicName);
+
+            // Add some space
+            document.add(new Paragraph("\n"));
+
+            // Doctor and Patient Details Table with increased spacing
+            float[] columnWidths = {2, 1}; // Adjust the ratio for desired spacing
+            PdfPTable detailsTable = new PdfPTable(columnWidths);
+            detailsTable.setWidthPercentage(100);
+
+            // Doctor's Details
+            PdfPCell doctorCell = new PdfPCell();
+            doctorCell.setBorder(PdfPCell.NO_BORDER);
+            doctorCell.addElement(new Paragraph("Doctor: " + doctor.getDoctorName()));
+            doctorCell.addElement(new Paragraph("Expertise: " + doctor.getSpecialization().getExpertise()));
+            doctorCell.addElement(new Paragraph("Mobile: " + doctor.getMobile()));
+            detailsTable.addCell(doctorCell);
+
+            // Patient's Details
+            PdfPCell patientCell = new PdfPCell();
+            patientCell.setBorder(PdfPCell.NO_BORDER);
+            patientCell.addElement(new Paragraph("Patient: " + patient.getName()));
+            patientCell.addElement(new Paragraph("Mobile: " + patient.getMobile()));
+            patientCell.setHorizontalAlignment(Element.ALIGN_RIGHT); // Align content to the right
+            detailsTable.addCell(patientCell);
+
+            document.add(detailsTable);
+
+            // Add horizontal line
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph(new Phrase(new Chunk(new LineSeparator()))));
+
+            // Add space (5 lines)
+            document.add(new Paragraph("\n\n"));
+
+            // Disease Title (Bold and Larger Font)
+            Font diseaseTitleFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
+            Paragraph diseaseTitle = new Paragraph(dto.getDisease()+" Report", diseaseTitleFont);
+            diseaseTitle.setAlignment(Element.ALIGN_CENTER);
+            document.add(diseaseTitle);
+
+            // Add space before description
+            document.add(new Paragraph("\n\n"));
+
+            // Description
+            Font descriptionFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+            Paragraph description = new Paragraph("Description: " + dto.getDescription(), descriptionFont);
+            document.add(description);
+
+            // Add space before the footer
+            document.add(new Paragraph("\n\n"));
+
+            // Footer with Doctor's Name and Date (Right-aligned)
+            PdfPTable footerTable = new PdfPTable(1);
+            footerTable.setWidthPercentage(100);
+
+            document.add(new Paragraph("\n\n\n\n\n\n\n"));
+
+            PdfPCell footerCell = new PdfPCell();
+            footerCell.setBorder(PdfPCell.NO_BORDER);
+            footerCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            footerCell.addElement(new Paragraph(  doctor.getDoctorName()));
+            footerCell.addElement(new Paragraph("date: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+            footerTable.addCell(footerCell);
+
+            document.add(footerTable);
+
+
+        } catch (FileNotFoundException | DocumentException e) {
+            e.printStackTrace();
+        } finally {
+            document.close();
+        }
+
     }
 }
 
